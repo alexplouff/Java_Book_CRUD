@@ -6,6 +6,7 @@
 package low_level;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,7 +50,7 @@ public class Book_DAO implements Book_DAO_Strategy {
     }
 
     @Override
-    public BookStrategy getBookByID(String id) throws SQLException, ClassNotFoundException,IllegalArgumentException {
+    public BookStrategy getBookByID(String id) throws SQLException, ClassNotFoundException,IllegalArgumentException, ParseException {
         BookStrategy book = null;
         if (id != null && id.matches("\\d+")) {
              
@@ -82,7 +83,7 @@ public class Book_DAO implements Book_DAO_Strategy {
     }
 
     @Override
-    public List<BookStrategy> getAllBookRecords() throws SQLException, ClassNotFoundException {
+    public List<BookStrategy> getAllBookRecords() throws SQLException, ClassNotFoundException, ParseException {
         List<Map<String, Object>> bookRecords = new ArrayList(accessor.getRecords(DATABASE_TABLE));
         List<BookStrategy> listOfBooks = new ArrayList<>();
         for (Map<String, Object> value : bookRecords) {
@@ -111,7 +112,7 @@ public class Book_DAO implements Book_DAO_Strategy {
     public void createBookRecord(BookStrategy book) throws SQLException, ClassNotFoundException,IllegalArgumentException {
         List values = new ArrayList<>();
         if (book != null) {
-            values.remove(PRIMARY_KEY_COLUMN);
+            listOfColumns.remove(PRIMARY_KEY_COLUMN);
             values.add(book.getTitle());
             values.add(book.getAuthorFirstName());
             values.add(book.getAuthorLastName());

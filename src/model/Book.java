@@ -5,16 +5,23 @@
  */
 package model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author alex
  */
 public class Book implements BookStrategy{
     
-    private String title, authorFirstName, authorLastName, datePublished;
+    private String title, authorFirstName, authorLastName;
+    private Date datePublished;
     private int id;
 
-    public Book(String id, String title, String authorFirstName, String authorLastName, String datePublished) {
+    public Book(String id, String title, String authorFirstName, String authorLastName, String datePublished) throws ParseException{
         setId(id);
         setTitle(title);
         setAuthorFirstName(authorFirstName);
@@ -22,8 +29,7 @@ public class Book implements BookStrategy{
         setDatePublished(datePublished);
     }
     
-    public Book(String title, String authorFirstName, String authorLastName, String datePublished) {
-        setId(id);
+    public Book(String title, String authorFirstName, String authorLastName, String datePublished) throws ParseException {
         setTitle(title);
         setAuthorFirstName(authorFirstName);
         setAuthorLastName(authorLastName);
@@ -60,12 +66,19 @@ public class Book implements BookStrategy{
     }
 
     @Override
-    public String getDatePublished() {
+    public Date getDatePublished() {
         return datePublished;
     }
 
-    public final void setDatePublished(String datePublished) {
-        this.datePublished = datePublished;
+    public final void setDatePublished(String datePublished) throws IllegalArgumentException, ParseException {
+        if(datePublished != null){
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = formatter.parse(datePublished);
+            this.datePublished = date;
+        } else {
+            throw new IllegalArgumentException("Date Could Not Be Parsed");
+        }
+        
     }
 
     @Override
@@ -81,8 +94,15 @@ public class Book implements BookStrategy{
     }
     
     public final void setId(int id){
-        
+        this.id=id;
     }
     
+    public String toString(){
+        return "Book ID: " + id + 
+                "\nTitle: " + title +
+                "\nAuthor First Name: " + authorFirstName + 
+                "\nAuthor Last Name: " + authorLastName + 
+                "\nDate Published: " + datePublished;
+    }
     
 }

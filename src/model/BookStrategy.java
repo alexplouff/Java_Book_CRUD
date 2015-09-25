@@ -5,6 +5,9 @@
  */
 package model;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author alex
@@ -15,7 +18,7 @@ public interface BookStrategy {
 
     public abstract String getAuthorLastName();
 
-    public abstract String getDatePublished();
+    public abstract Date getDatePublished();
 
     public abstract int getId();
 
