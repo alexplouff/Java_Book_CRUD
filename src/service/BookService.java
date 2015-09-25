@@ -50,7 +50,7 @@ public class BookService {
         String firstName = values.get(2);
         String lastName = values.get(3);
         String datePublished = values.get(4);
-        dao.createBookRecord(new Book(id, title,firstName,lastName,datePublished));
+        dao.updateBookRecord(new Book(id, title,firstName,lastName,datePublished));
     }
     
     public List<BookStrategy> getAllRecords() throws ClassNotFoundException, SQLException, IllegalArgumentException, ParseException{
@@ -83,7 +83,11 @@ public class BookService {
         list.add("Aldous");
         list.add("Huxley");
         list.add("01-01-1932");
-        service.updateBookRecord(list);
+        //service.updateBookRecord(list);
+        List deleteList = new ArrayList();
+        deleteList.add(5);
+        deleteList.add("6");
+        service.deleteRecords(deleteList);
         System.out.println(service.getAllRecords());
     }
 }

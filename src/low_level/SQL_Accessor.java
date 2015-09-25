@@ -64,12 +64,13 @@ public class SQL_Accessor implements DatabaseAccessorStrategy {
     public void deleteRecords(Object table, Object primaryKeyColumn,
             List<Object> primaryKeys) throws SQLException, ClassNotFoundException {
         try {
-            sBuffer = new StringBuffer("DELETE FROM ").append(table)
-                    .append(" WHERE ").append(primaryKeyColumn).append(" = ?");
+            openDatabaseConnection();
+//            sBuffer = new StringBuffer("DELETE FROM ").append(table)
+//                    .append(" WHERE ").append(primaryKeyColumn).append(" = ?");
             PreparedStatement pstmt;
-
+            String query = "DELETE FROM " + table + " WHERE " + primaryKeyColumn + "= ?";
             for (Object obj : primaryKeys) {
-                pstmt = sql_conn.prepareStatement(sBuffer.toString());
+                pstmt = sql_conn.prepareStatement(query);
                 pstmt.setObject(1, obj.toString());
                 pstmt.executeUpdate();
             }
