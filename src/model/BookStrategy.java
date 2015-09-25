@@ -10,5 +10,15 @@ package model;
  * @author alex
  */
 public interface BookStrategy {
+
+    public abstract String getAuthorFirstName();
+
+    public abstract String getAuthorLastName();
+
+    public abstract String getDatePublished();
+
+    public abstract int getId();
+
+    public abstract String getTitle();
     
 }
